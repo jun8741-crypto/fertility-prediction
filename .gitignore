@@ -76,3 +76,6 @@ Icon
 
 .claude/
 .aider*
+
+# 툴 폴더 추가
+.codex/
