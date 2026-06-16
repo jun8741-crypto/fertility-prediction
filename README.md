@@ -304,6 +304,8 @@ CV가 오르면 LB가 오를 것이라는 직관은 leakage가 있을 때 깨진
 
 각 파일은 self-contained 단일 .py로, `data/` 디렉토리에 `train.csv`, `test.csv`, `submission/sample_submission.csv` 위치 시 단독 실행 가능.
 
+> 본 저장소에는 진화 과정의 최종 결과인 **챔피언 `final_submission_260428_v62h.py`만 포함**합니다 (위 표는 사이클별 진화 과정을 설명).
+
 ## 부록 B — 환경
 
 ```
@@ -335,4 +337,4 @@ python final_submission_260428_v62h.py    # 챔피언 사이클 6 재현
 
 ## 데이터 사용 안내
 
-대회 데이터(`data/`, `submission/`)와 발표 자료(`*.pdf`, `*.pptx`)는 외부 공유 금지로 `.gitignore`에 의해 제외. 본 저장소는 코드와 README만 공개.
+대회 데이터(`data/`, `submission/`)는 외부 공유 금지로 `.gitignore`에 의해 제외합니다. 최종 발표 자료는 `docs/presentation.pdf`로 포함되며, 본 저장소는 코드·README·발표자료를 공개합니다.

@@ -79,3 +79,6 @@ Icon
 
 # 툴 폴더 추가
 .codex/
+
+# 발표자료 PDF는 포트폴리오에 포함 (docs/만 예외)
+!docs/presentation.pdf
