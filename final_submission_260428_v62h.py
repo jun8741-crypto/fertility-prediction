@@ -1082,7 +1082,7 @@ def main():
     t_global = time.time()
     print("=" * 78)
     print("난임 환자 임신 성공 여부 예측 — v62h 최종 챔피언 (사이클 5, 2026-04-29)")
-    print("AI헬스케어 3기 해커톤 / DACON x 오즈코딩스쿨 / jun8741@gmail.com")
+    print("AI헬스케어 3기 해커톤 / DACON x 오즈코딩스쿨 / jun8741@naver.com")
     print("3위 코드 0% — 100% 자체 작성 코드")
     print("=" * 78)
 
