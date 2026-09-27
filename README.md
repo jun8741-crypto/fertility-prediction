@@ -17,7 +17,7 @@
 - **임상-ML hybrid 접근**: 산부인과 도메인 지식 + 외부 학술 논문 4편 검증을 통해 단순 ML이 도달하지 못하는 신호를 추가
 - **체계적 ablation**: 26+ 카드 시도로 단변수 phenotype 천장의 메커니즘을 정확히 규명
 - **차원 전환의 발견**: phenotype clustering이 아닌 *표현 변환*(NaN-mask, age replacement)이 LightGBM 자체 학습 한계를 넘는 본질이라는 메타 인사이트 도출
-- **Adversarial Validation 기반 leakage 제거**: 마감 D-1에 interaction TE 누수를 발견하고 수정 → CV-LB 비례 22.5% → 47.4%로 2배 개선
+- **Adversarial Validation 기반 leakage 제거**: 마감 D-1에 학습·평가 데이터의 출처를 맞히는 분류기가 5겹 모두 AUC 1.000으로 두 데이터를 완전히 구분하는 것을 확인 → interaction TE를 학습(fold별)과 평가(전체)에서 다르게 계산한 누수를 찾아 제거
 - **결과**: 베이스라인 v10 LB 0.74211에서 6사이클의 단계적 개선을 통해 최종 LB 0.7423993까지 누적 +0.000289 게인 달성
 
 ---
@@ -173,14 +173,7 @@ DI cycle에서 IVF 전용 피처는 *시술 비적용*이므로 noise. 0으로 �
 2. Bayesian smoothing (prior=global mean, strength=20)
 3. round_decimals=4로 디지털 지문 제거
 
-CV-LB 비례 검증:
-
-| 자산 | OOF Δ vs v62b | LB Δ vs v62b | 비례 |
-|------|---------------|--------------|------|
-| leakage 있음 | +0.000420 | +0.0000946 | **22.5%** |
-| **leakage 제거 후** | +0.000317 | +0.0000458 | **47.4%** ⭐ 2배 개선 |
-
-→ leakage 제거 자체로 LB 게인보다도, *모델의 일반화 신뢰도가 2배 향상*된 것이 더 큰 자산.
+발견 근거: 학습·평가 데이터를 합쳐 출처를 맞히는 분류기(Adversarial Validation)의 5겹 AUC가 모두 1.000이었다. 두 데이터가 가공 과정에서 서로 다른 분포가 되어 있었다는 뜻이고, 원인은 interaction TE를 학습 쪽은 fold별 통계로, 평가 쪽은 전체 통계 하나로 계산한 것이었다.
 
 ### 핵심 포인트
 
@@ -214,7 +207,7 @@ H2 (donor 나이 replacement)와 H9 (DI cycle NaN masking) 모두 LightGBM/CatBo
 
 #### ④ Adversarial Validation 기반 leakage 검증
 
-대회 마감 D-1에 발견한 가장 결정적 인사이트. CV가 LB와 비례하지 않는 근본 원인을 찾고, 일반화 능력을 2배 끌어올림.
+대회 마감 D-1에 발견한 가장 결정적 인사이트. 교차검증 점수와 리더보드 점수가 따로 움직이던 근본 원인(학습·평가 데이터의 타깃 인코딩 계산 방식 차이)을 찾아 제거.
 
 ---
 
